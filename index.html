@@ -8,10 +8,8 @@
   <style>
     :root {
       --black: #080810;
-      --deep: #0d0d1a;
       --gold: #c9a227;
       --gold-light: #e8c44a;
-      --gold-dim: rgba(201,162,39,0.15);
       --white: #f0ede6;
       --muted: rgba(240,237,230,0.45);
       --border: rgba(201,162,39,0.25);
@@ -20,57 +18,46 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { min-height: 100%; background: var(--black); color: var(--white); font-family: 'Jost', sans-serif; overflow-x: hidden; }
 
-    /* ── Canvas Background ── */
     #bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
     body::after { content: ''; position: fixed; inset: 0; background: radial-gradient(circle, transparent 40%, rgba(8,8,16,0.9) 100%); z-index: 1; pointer-events: none; }
 
-    /* ── Animations ── */
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes slideUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes spin-ring { to { transform: rotate(360deg); } }
-    @keyframes pulse-orb { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9; } }
-
+    
     .container { position: relative; z-index: 2; max-width: 420px; margin: 0 auto; padding: 40px 24px 60px; display: flex; flex-direction: column; align-items: center; }
-    .deco-line { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold)); margin-bottom: 24px; animation: fadeIn 1s 0.1s ease both; }
+    .deco-line { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold)); margin-bottom: 24px; animation: fadeIn 1s ease both; }
 
-    /* ── Avatar ── */
     .avatar-ring { position: relative; width: 110px; height: 110px; margin-bottom: 24px; animation: fadeIn 0.8s 0.2s ease both; }
     .avatar-ring::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: conic-gradient(var(--gold) 0deg, transparent 120deg, var(--gold-light) 240deg, transparent 300deg, var(--gold) 360deg); animation: spin-ring 8s linear infinite; }
     .avatar-ring::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; background: var(--black); }
-    .avatar-img { position: relative; z-index: 3; width: 110px; height: 110px; border-radius: 50%; object-fit: cover; object-position: top center; }
-    .orb { position: absolute; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(201,162,39,0.25) 0%, transparent 70%); filter: blur(30px); top: 50%; left: 50%; transform: translate(-50%, -50%); animation: pulse-orb 5s ease-in-out infinite; z-index: 2; }
+    .avatar-img { position: relative; z-index: 3; width: 110px; height: 110px; border-radius: 50%; object-fit: cover; }
 
-    /* ── Header ── */
     .header { text-align: center; margin-bottom: 20px; animation: fadeIn 0.8s 0.3s ease both; }
     .name { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
     .title-tag { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border); padding: 4px 14px; border-radius: 2px; }
 
-    /* ── Socials ── */
     .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 30px; animation: fadeIn 0.8s 0.4s ease both; }
     .social-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: all 0.3s ease; background: rgba(8,8,16,0.5); }
     .social-btn svg { width: 18px; height: 18px; fill: currentColor; }
-    .social-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(201,162,39,0.25); }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
 
-    /* ── Links ── */
     .links { width: 100%; display: flex; flex-direction: column; gap: 12px; }
-    .link-card { position: relative; display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; text-decoration: none; color: var(--white); transition: all 0.3s ease; animation: slideUp 0.6s ease both; overflow: hidden; }
+    .link-card { position: relative; display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; text-decoration: none; color: var(--white); transition: all 0.3s ease; animation: slideUp 0.6s ease both; }
     .link-card:hover { border-color: rgba(201,162,39,0.6); background: rgba(201,162,39,0.06); transform: translateX(5px); }
 
-    /* Featured (Spectacle) Card */
-    .link-card.featured { padding: 0; flex-direction: column; align-items: flex-start; gap: 0; }
-    .featured-photo-wrap { width: 100%; position: relative; overflow: hidden; }
-    .featured-img { width: 100%; max-width: 420px; height: auto; display: block; object-fit: cover; }
-    .featured-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, rgba(8,8,16,0.8)); }
-    .featured-body { padding: 14px 18px; display: flex; align-items: center; gap: 14px; width: 100%; }
+    /* Style spécifique pour la photo du spectacle */
+    .link-card.featured { padding: 0; flex-direction: column; overflow: hidden; }
+    .featured-img { width: 100%; height: auto; display: block; }
+    .featured-body { padding: 14px 18px; display: flex; align-items: center; gap: 14px; width: 100%; background: linear-gradient(to top, rgba(201,162,39,0.05), transparent); }
 
     .link-icon { width: 36px; height: 36px; background: rgba(201,162,39,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .link-icon svg { width: 18px; height: 18px; fill: var(--gold); }
     
     .link-text { flex: 1; }
-    .link-label { font-size: 0.88rem; font-weight: 400; letter-spacing: 0.02em; }
+    .link-label { font-size: 0.88rem; font-weight: 400; }
     .link-sub { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
-    .link-arrow { color: var(--gold); font-size: 1rem; opacity: 0.5; transition: 0.3s; }
-    .link-card:hover .link-arrow { opacity: 1; transform: translateX(3px); }
+    .link-arrow { color: var(--gold); opacity: 0.5; transition: 0.3s; }
 
     .footer { margin-top: 50px; text-align: center; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; }
   </style>
@@ -83,7 +70,6 @@
   <div class="deco-line"></div>
 
   <div class="avatar-ring">
-    <div class="orb"></div>
     <img class="avatar-img" src="IMG_6497.JPG" alt="Michael Demers">
   </div>
 
@@ -93,33 +79,38 @@
   </div>
 
   <div class="socials">
-    <a href="#" class="social-btn" target="_blank">
+    <a href="https://instagram.com/TON_USER" class="social-btn" target="_blank">
       <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     </a>
-    <a href="#" class="social-btn" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31 0 2.591.214 3.75.606V5.32c-1.027-.308-2.127-.466-3.25-.466-.547 0-1.062.067-1.55.192V0h1.05zM9.475 24c-2.624 0-4.75-2.126-4.75-4.75s2.126-4.75 4.75-4.75c.546 0 1.059.094 1.55.257v-5.267c-1.31-.383-2.69-.59-4.125-.59C3.105 8.9 0 12.005 0 15.825 0 19.645 3.105 22.75 6.925 22.75c1.17 0 2.274-.29 3.25-.806V17.58c-.85.494-1.84.77-2.9.77zM24 7.5a7.17 7.17 0 0 1-4.275-1.425V14.8c0 3.975-3.225 7.2-7.2 7.2-.55 0-1.075-.075-1.575-.175v5.125c.515.035 1.04.05 1.575.05 6.735 0 12.2-5.465 12.2-12.2V7.5z"/></svg>
+    <a href="https://tiktok.com/@TON_USER" class="social-btn" target="_blank">
+      <svg viewBox="0 0 448 512"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.32h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
     </a>
-    <a href="#" class="social-btn" target="_blank">
+    <a href="https://facebook.com/TON_PAGE" class="social-btn" target="_blank">
       <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1V12h3l-.5 3H13v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
-    </a>
-    <a href="#" class="social-btn" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
     </a>
   </div>
 
   <div class="links">
-    <a href="https://micdemers.com" class="link-card featured" target="_blank">
-      <div class="featured-photo-wrap">
-        <img class="featured-img" src="SECRETS - Nordet.JPEG" alt="SECRETS — Spectacle Live">
-        <div class="featured-overlay"></div>
+    <a href="https://micdemers.com" class="link-card" target="_blank">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
       </div>
+      <div class="link-text">
+        <div class="link-label">Site Officiel</div>
+        <div class="link-sub">micdemers.com</div>
+      </div>
+      <div class="link-arrow">→</div>
+    </a>
+
+    <a href="https://micdemers.com" class="link-card featured" target="_blank">
+      <img class="featured-img" src="SECRETS - Nordet.JPEG" alt="SECRETS">
       <div class="featured-body">
         <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5z"/></svg>
         </div>
         <div class="link-text">
           <div class="link-label">SECRETS — Spectacle Live</div>
-          <div class="link-sub">29 juillet 2026 · Réservez votre place</div>
+          <div class="link-sub">29 juillet 2026 · Réservez ici</div>
         </div>
         <div class="link-arrow">→</div>
       </div>
@@ -131,18 +122,18 @@
       </div>
       <div class="link-text">
         <div class="link-label">Obtenir une Soumission</div>
-        <div class="link-sub">Pour vos événements corpo ou privés</div>
+        <div class="link-sub">Pour vos événements</div>
       </div>
       <div class="link-arrow">→</div>
     </a>
 
-    <a href="#" class="link-card" target="_blank">
+    <a href="https://g.page/r/CQvoUrSB-ZMcEAE/review" class="link-card" target="_blank">
       <div class="link-icon">
         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
       </div>
       <div class="link-text">
-        <div class="link-label">Avis Clients</div>
-        <div class="link-sub">Découvrez les témoignages (Google)</div>
+        <div class="link-label">Avis Google</div>
+        <div class="link-sub">Pour voir ou écrire un avis</div>
       </div>
       <div class="link-arrow">→</div>
     </a>
@@ -152,7 +143,6 @@
 </div>
 
 <script>
-  // Animation de particules (poussière dorée)
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
   let particles = [];
@@ -166,9 +156,9 @@
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: Math.random() * 1.5 + 0.5,
-        speedX: Math.random() * 0.4 - 0.2,
-        speedY: Math.random() * 0.4 - 0.2,
-        opacity: Math.random() * 0.5 + 0.2
+        speedX: Math.random() * 0.3 - 0.15,
+        speedY: Math.random() * 0.3 - 0.15,
+        opacity: Math.random() * 0.4 + 0.1
       });
     }
   }
@@ -181,17 +171,14 @@
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
       ctx.fill();
-      p.x += p.speedX;
-      p.y += p.speedY;
+      p.x += p.speedX; p.y += p.speedY;
       if(p.x < 0 || p.x > canvas.width) p.speedX *= -1;
       if(p.y < 0 || p.y > canvas.height) p.speedY *= -1;
     });
     requestAnimationFrame(animate);
   }
-
   window.addEventListener('resize', init);
-  init();
-  animate();
+  init(); animate();
 </script>
 
 </body>
