@@ -12,14 +12,14 @@
       --gold-light: #e8c44a;
       --white: #f0ede6;
       --muted: rgba(240,237,230,0.45);
-      --border: rgba(201,162,39,0.35);
+      --border: rgba(201,162,39,0.5); /* Augmentation de l'opacité de base */
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { min-height: 100%; background: var(--black); color: var(--white); font-family: 'Jost', sans-serif; overflow-x: hidden; }
 
     #bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-    body::after { content: ''; position: fixed; inset: 0; background: radial-gradient(circle, transparent 40%, rgba(8,8,16,0.9) 100%); z-index: 1; pointer-events: none; }
+    body::after { content: ''; position: fixed; inset: 0; background: radial-gradient(circle, transparent 30%, rgba(8,8,16,0.85) 100%); z-index: 1; pointer-events: none; }
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes slideUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -29,44 +29,51 @@
     .deco-line { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold)); margin-bottom: 24px; animation: fadeIn 1s ease both; }
 
     .avatar-ring { position: relative; width: 110px; height: 110px; margin-bottom: 24px; animation: fadeIn 0.8s 0.2s ease both; }
-    .avatar-ring::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: conic-gradient(var(--gold) 0deg, transparent 120deg, var(--gold-light) 240deg, transparent 300deg, var(--gold) 360deg); animation: spin-ring 8s linear infinite; }
+    .avatar-ring::before { content: ''; position: absolute; inset: -5px; border-radius: 50%; background: conic-gradient(var(--gold) 0deg, transparent 120deg, var(--gold-light) 240deg, transparent 300deg, var(--gold) 360deg); animation: spin-ring 10s linear infinite; }
     .avatar-ring::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; background: var(--black); }
     .avatar-img { position: relative; z-index: 3; width: 110px; height: 110px; border-radius: 50%; object-fit: cover; }
 
     .header { text-align: center; margin-bottom: 20px; animation: fadeIn 0.8s 0.3s ease both; }
     .name { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-    .title-tag { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); border: 1.5px solid var(--border); padding: 4px 14px; border-radius: 4px; }
+    .title-tag { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); border: 2.5px solid var(--border); padding: 5px 14px; border-radius: 4px; }
 
     .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 30px; animation: fadeIn 0.8s 0.4s ease both; }
-    .social-btn { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: all 0.3s ease; background: rgba(8,8,16,0.5); }
+    .social-btn { width: 42px; height: 42px; border-radius: 50%; border: 2.5px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: all 0.3s ease; background: rgba(8,8,16,0.6); }
     .social-btn svg { width: 18px; height: 18px; fill: currentColor; }
-    .social-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(201,162,39,0.2); }
 
-    .links { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+    .links { width: 100%; display: flex; flex-direction: column; gap: 16px; }
     .link-card { 
       position: relative; display: flex; align-items: center; gap: 14px; 
-      background: rgba(255,255,255,0.03); 
-      border: 1.5px solid var(--border); 
-      border-radius: 12px; 
-      padding: 14px 18px; 
-      text-decoration: none; color: var(--white); transition: all 0.3s ease; 
+      background: rgba(255,255,255,0.04); 
+      border: 2.5px solid var(--border); 
+      border-radius: 14px; 
+      padding: 16px 18px; 
+      text-decoration: none; color: var(--white); transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); 
       animation: slideUp 0.6s ease both; 
     }
-    .link-card:hover { border-color: rgba(201,162,39,0.8); background: rgba(201,162,39,0.08); transform: scale(1.02); }
+    .link-card:hover { 
+      border-color: var(--gold); 
+      background: rgba(201,162,39,0.12); 
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 10px rgba(201,162,39,0.15);
+    }
 
     .link-card.featured { padding: 0; flex-direction: column; overflow: hidden; }
-    .featured-img { width: 100%; height: auto; display: block; }
+    .featured-img { width: 100%; height: auto; display: block; border-bottom: 2.5px solid var(--border); transition: border-color 0.3s ease; }
+    .link-card.featured:hover .featured-img { border-color: var(--gold); }
     .featured-body { padding: 14px 18px; display: flex; align-items: center; gap: 14px; width: 100%; background: linear-gradient(to top, rgba(201,162,39,0.05), transparent); }
 
-    .link-icon { width: 36px; height: 36px; background: rgba(201,162,39,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .link-icon { width: 36px; height: 36px; background: rgba(201,162,39,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .link-icon svg { width: 18px; height: 18px; fill: var(--gold); }
     
     .link-text { flex: 1; }
-    .link-label { font-size: 0.9rem; font-weight: 400; }
-    .link-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
-    .link-arrow { color: var(--gold); opacity: 0.5; font-size: 1.1rem; }
+    .link-label { font-size: 0.95rem; font-weight: 400; letter-spacing: 0.02em; }
+    .link-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .link-arrow { color: var(--gold); opacity: 0.7; font-size: 1.2rem; transition: transform 0.3s ease; }
+    .link-card:hover .link-arrow { transform: translateX(4px); opacity: 1; }
 
-    .footer { margin-top: 50px; text-align: center; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; }
+    .footer { margin-top: 50px; text-align: center; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.6; }
   </style>
 </head>
 <body>
@@ -140,29 +147,74 @@
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
   let particles = [];
+  const particleCount = 70; // Un peu plus de particules
+  const maxDistance = 120;  // Distance pour tracer les lignes
+
   function init() {
-    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth; 
+    canvas.height = window.innerHeight;
     particles = [];
-    for(let i=0; i<60; i++) {
+    for(let i=0; i<particleCount; i++) {
       particles.push({
-        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-        size: Math.random() * 1.5 + 0.5, speedX: Math.random() * 0.3 - 0.15,
-        speedY: Math.random() * 0.3 - 0.15, opacity: Math.random() * 0.4 + 0.1
+        x: Math.random() * canvas.width, 
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 0.5, 
+        speedX: Math.random() * 0.4 - 0.2,
+        speedY: Math.random() * 0.4 - 0.2, 
+        opacity: Math.random() * 0.5 + 0.2
       });
     }
   }
+
   function animate() {
-    ctx.clearRect(0,0, canvas.width, canvas.height); ctx.fillStyle = '#c9a227';
-    particles.forEach(p => {
-      ctx.globalAlpha = p.opacity; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
-      p.x += p.speedX; p.y += p.speedY;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (let i = 0; i < particles.length; i++) {
+      let p = particles[i];
+      
+      // Mise à jour position
+      p.x += p.speedX;
+      p.y += p.speedY;
+
+      // Rebondissement doux
       if(p.x < 0 || p.x > canvas.width) p.speedX *= -1;
       if(p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-    });
+
+      // Dessin particule
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = '#c9a227';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Dessin des lignes de connexion
+      for (let j = i + 1; j < particles.length; j++) {
+        let p2 = particles[j];
+        let dx = p.x - p2.x;
+        let dy = p.y - p2.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < maxDistance) {
+          ctx.beginPath();
+          ctx.strokeStyle = '#c9a227';
+          // La ligne devient plus transparente avec la distance
+          ctx.globalAlpha = (1 - dist / maxDistance) * 0.15;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+    }
     requestAnimationFrame(animate);
   }
-  window.addEventListener('resize', init);
-  init(); animate();
+
+  window.addEventListener('resize', () => {
+    init();
+  });
+
+  init(); 
+  animate();
 </script>
 
 </body>
